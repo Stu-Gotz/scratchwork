@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css" >
+    <title>Document</title>
+</head>
+<body>    
+        <div class="main-content">
+            <div class="textarea-div">
+                <div class="buttons">
+                    <a href="#" role="button" class="btn btn-submit">Submit</a>
+                    <a href="#" role="button" class="btn btn-clear">Clear</a>
+                </div>
+                <textarea class="pastearea"></textarea>
+            </div>
+
+            
+            <div class="inner-content">
+                <div class="main-top">
+                    <ul class="team-holder">
+                        <li class="card" id="card1">
+                            <div class="cardfront">
+                                <div class="cardfront-images">
+                                    <div class="cardfront-icon">
+                                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="ditto">
+                                    </div>
+                                    <div class="cardfront-item">
+                                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ability-urge.png" alt="metalpowder">
+                                    </div>
+                                </div>
+                                    <div class="cardfront-text">
+                                        nature, evs and such
+                                    </div>
+                            </div>
+                        </li>    
+                        <!-- back display of the card dynamically create the rest -->
+                        <!-- <div class="cardback">
+                            <div class="cardback-images">
+                                <div class="cardback-icon">
+                                    icon of the pokemon
+                                </div>
+                                <div class="cardback-item">
+                                    held item image
+                                </div>
+                            </div>
+                                <div class="cardback-text">
+                                    nature, evs and such
+                                </div>
+                            </div> -->
+                    
+                    <li class="card">
+                        c2
+                    </li>
+                    <li class="card">
+                        c2
+                    </li>
+                    <li class="card">
+                        c2
+                    </li>
+                    <li class="card">
+                        c2
+                    </li>
+                    <li class="card">
+                        c2
+                    </li> 
+                </ul>
+            </div>
+            <div class="main-btm">
+                <div class="display">
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            footer things
+        </div>
+    </div>
+
+</body>
+<script>
+// Targets all textareas with class "txta"
+let textareas = document.querySelectorAll('.textarea-div'),
+    hiddenDiv = document.createElement('div'),
+    content = null;
+
+// Adds a class to all textareas
+for (let j of textareas) {
+  j.classList.add('pastearea');
+}
+
+// Build the hidden div's attributes
+
+// The line below is needed if you move the style lines to CSS
+// hiddenDiv.classList.add('hiddendiv');
+
+// Add the "textarea-div" styles, which are common to both textarea and hiddendiv
+// If you want, you can remove those from CSS and add them via JS
+hiddenDiv.classList.add('textarea-div');
+
+// Add the styles for the hidden div
+// These can be in the CSS, just remove these three lines and uncomment the CSS
+hiddenDiv.style.display = 'none';
+hiddenDiv.style.whiteSpace = 'pre-wrap';
+hiddenDiv.style.wordWrap = 'break-word';
+
+// Loop through all the textareas and add the event listener
+for(let i of textareas) {
+  (function(i) {
+    // Note: Use 'keyup' instead of 'input'
+    // if you want older IE support
+    i.addEventListener('input', function() {
+      
+      // Append hiddendiv to parent of textarea, so the size is correct
+      i.parentNode.appendChild(hiddenDiv);
+      
+      // Remove this if you want the user to be able to resize it in modern browsers
+      i.style.resize = 'none';
+      
+      // This removes scrollbars
+      i.style.overflow = 'hidden';
+
+      // Every input/change, grab the content
+      content = i.value;
+
+      // Add the same content to the hidden div
+      
+      // This is for old IE
+      content = content.replace(/\n/g, '<br>');
+      
+      // The <br ..> part is for old IE
+      // This also fixes the jumpy way the textarea grows if line-height isn't included
+      hiddenDiv.innerHTML = content + '<br style="line-height: 3px;">';
+
+      // Briefly make the hidden div block but invisible
+      // This is in order to read the height
+      hiddenDiv.style.visibility = 'hidden';
+      hiddenDiv.style.display = 'block';
+      i.style.height = hiddenDiv.offsetHeight + 'px';
+
+      // Make the hidden div display:none again
+      hiddenDiv.style.visibility = 'visible';
+      hiddenDiv.style.display = 'none';
+    });
+  })(i);
+}
+
+
+</script>
+</html>
